@@ -1,15 +1,27 @@
-import userlogin from './assets/userlogin.svg'
+import Header from './components/Header'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import Vietos from './pages/Vietos'
+import Renginiai from './pages/Renginiai'
+import { BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
+
 import './css/App.css'
+import './css/styles.css'
 
 function App() {
 
   return (
     <>
-      <a href="" target="_blank">
-        <img src={userlogin} className="logo" alt="log in" />
-      </a>
-      <h1>Renginiai</h1>
-      <button>Ieskoti</button>
+      <BrowserRouter>
+        <Header />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/renginiai" element={<Renginiai />} />
+          <Route path="/vietos" element={<Vietos />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
