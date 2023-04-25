@@ -13,6 +13,10 @@ const Navbar = () => {
                     <li>
                         <Link to="/vietos">Vietos</Link>
                     </li>
+                    <li>
+                            {/* remember to change it later */}
+                        <Link to="/login&register">register</Link>
+                    </li>
                 </ul>
             </nav>
         </>
