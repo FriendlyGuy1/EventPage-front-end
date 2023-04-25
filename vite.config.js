@@ -12,3 +12,4 @@ export default defineConfig({ //if somebody touches this there a dead man
   },
   plugins: [react()],
 })
+
