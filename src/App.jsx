@@ -5,6 +5,7 @@ import Vietos from './pages/Vietos'
 import Renginiai from './pages/Renginiai'
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from "react-router-dom";
+import LoginRegister from './pages/Login&Register'
 
 import './css/App.css'
 import './css/styles.css'
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path='/login&register' element={<LoginRegister />} />
           <Route path="/renginiai" element={<Renginiai />} />
           <Route path="/vietos" element={<Vietos />} />
         </Routes>
