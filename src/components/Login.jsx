@@ -2,60 +2,49 @@ import userServices from "../services/userService";
 import React, { useState } from "react";
 
 // The name can change if we would be splitting them up
-const RegisterUser = () => {
+const LoginUser = () => {
 
     const [email, setEmail] = useState('')
-    const [userName, setUserName] = useState('')
     const [passwd, setPasswd] = useState('')
 
     //the main function
-    const register = (f) => {
+    const login = (f) => {
         f.preventDefault();
 
         //template
-        const newUser = {
-            name: userName,
+        const user = {
             email: email,
             password: passwd
         }
-        userServices.registerUser(newUser)
+        userServices.loginUser(user)
 
         setEmail('')
-        setUserName('')
         setPasswd('')
 
-        console.log("register function done")
+        console.log("login function done")
     }
 
     return(
         <div>
-            <div>
+            <form>
                 <label>Email</label>
                 <input 
                     type="email"
                     placeholder="Enter email"
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}/>
-            </div>
-            <div>
-                <label>Name</label>
-                <input 
-                    type="text"
-                    placeholder="Enter Name"
-                    value={userName}
-                    onChange={(e)=>setUserName(e.target.value)}/>
-            </div>
-            <div>
+            </form>
+            <form>
                 <label>Password</label>
                 <input 
                     type="password"
                     placeholder="Enter Password"
                     value={passwd}
                     onChange={(e)=>setPasswd(e.target.value)}/>
-            </div>
-            <button onClick={register}>Register</button>
+            </form>
+            <button onClick={login}>Login</button>
         </div>
     )
 }
 
-export default RegisterUser
+export default LoginUser
