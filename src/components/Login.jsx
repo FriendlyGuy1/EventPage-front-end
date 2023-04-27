@@ -1,14 +1,14 @@
 import userServices from "../services/userService";
 import React, { useState } from "react";
 
-// The name can change if we would be splitting them up
-const LoginUser = () => {
+
+const LoginUser = ({setActiveUser}) => {
 
     const [email, setEmail] = useState('')
     const [passwd, setPasswd] = useState('')
 
     //the main function
-    const login = (f) => {
+    const login = async(f) => {
         f.preventDefault();
 
         //template
@@ -16,8 +16,12 @@ const LoginUser = () => {
             email: email,
             password: passwd
         }
-        userServices.loginUser(user)
-
+        const Login = await userServices.loginUser(user)
+        setActiveUser({
+            id: Login._id,
+            name: Login.name,
+            role: Login.role
+        })
         setEmail('')
         setPasswd('')
 

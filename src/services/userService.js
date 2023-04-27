@@ -5,7 +5,7 @@ const loginUser = async(user) => {
     
     try {
         const response = await axios.post('/api/user/login', user);
-        console.log('succesfull: ' + response);
+        console.log(response);
         return response;
     } catch(error){
         console.error(error)
@@ -17,7 +17,7 @@ const registerUser = async(newUser) => {
     
     try{
         const response = await axios.post('/api/user/register', newUser);
-        console.log('succesfull: ' + response);
+        //console.log(response);
         return response;
     } catch(error){
         console.error(error)
