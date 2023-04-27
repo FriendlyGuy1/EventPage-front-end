@@ -17,6 +17,9 @@ const Navbar = () => {
                             {/* remember to change it later */}
                         <Link to="/login&register">register</Link>
                     </li>
+                    <li>
+                        <Link to="/userevents">Your Events</Link>
+                    </li>
                 </ul>
             </nav>
         </>

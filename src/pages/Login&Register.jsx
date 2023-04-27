@@ -3,11 +3,11 @@ import RegisterUser from '../components/Register'
 import "../css/Login&Register.css"
 import LoginUser from '../components/Login'
 
-const LoginRegister = () => {
+const LoginRegister = ({setActiveUser}) => {
   return (
     <div className='register'>
-        <LoginUser />
-        <RegisterUser />
+        <LoginUser setActiveUser={setActiveUser}/>
+        <RegisterUser setActiveUser={setActiveUser}/>
     </div>
   )
 }
