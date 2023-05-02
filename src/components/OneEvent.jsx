@@ -4,7 +4,7 @@ import { deleteEvent } from '../features/events/eventSlice'
 function OneEvent({ event, showDeleteButton, category }) {
   const dispatch = useDispatch()
 
-
+  //standart
   if(category === ""){
     return(
       <>
@@ -25,6 +25,7 @@ function OneEvent({ event, showDeleteButton, category }) {
     </>
     )
   }
+  //category filter active
   else{
     return(
       <>
