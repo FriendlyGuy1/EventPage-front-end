@@ -1,16 +1,51 @@
-import React from 'react'
-import userlogin from '../assets/userlogin.svg'
+import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout, reset } from '../features/auth/authSlice'
 
+function Header() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
 
-const Header = () => {
-    return (
-        <>
-            <h1>Renginiai</h1>
-            <a href="" target="_blank">
-                <img src={userlogin} className="logo" alt="log in" />
-            </a>
-        </>
-    )
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
+
+  return (
+    <header className='header'>
+      <div className='logo'>
+        <Link to='/'>Create Event</Link>  
+      </div>
+      <div>
+        <Link to='/events'>Events</Link>  
+      </div>
+      <ul>
+        {user ? (
+          <li>
+            <button className='btn' onClick={onLogout}>
+              <FaSignOutAlt /> Logout
+            </button>
+          </li>
+        ) : (
+          <>
+            <li>
+              <Link to='/login'>
+                <FaSignInAlt /> Login
+              </Link>
+            </li>
+            <li>
+              <Link to='/register'>
+                <FaUser /> Register
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
+    </header>
+  )
 }
 
 export default Header
