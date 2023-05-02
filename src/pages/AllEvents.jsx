@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import OneEvent from '../components/OneEvent'
 import Spinner from '../components/Spinner'
 import { getEvents, reset } from '../features/events/eventSlice'
+import Filter from '../components/Filter'
 
 function AllEvents() {
     const dispatch = useDispatch()
@@ -35,17 +36,8 @@ function AllEvents() {
         <h1>Events</h1>
       </section>
 
-      <section className='content'>
-        {events.length > 0 ? (
-          <div className='goals'>
-            {events.map((event) => (
-              <OneEvent key={event._id} event={event} />
-            ))}
-          </div>
-        ) : (
-          <h3>Events not Found</h3>
-        )}
-      </section>
+      <Filter OneEvent={OneEvent} events={events}/>
+
     </>
   )
 }
