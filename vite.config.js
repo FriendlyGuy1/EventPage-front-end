@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({ //if somebody touches this there a dead man
-  plugins: [vue()],
+  // plugins: [vue()],
   server: {
     proxy: {
       '/api': 'https://eventpage.onrender.com'
