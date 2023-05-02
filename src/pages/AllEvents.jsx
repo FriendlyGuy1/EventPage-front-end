@@ -9,7 +9,7 @@ function AllEvents() {
 
       //Filter
       const [category, setCategory] = useState("")
-      // const [ageOption, setageOption] = useState("Oldest") // Oldest
+      const [ageOption, setageOption] = useState("Newest") // Oldest
 
     const { events, isLoading, isError, message } = useSelector(
       (state) => state.events
@@ -31,33 +31,19 @@ function AllEvents() {
         return <Spinner />
       }
 
-      // let eventsCopy = events.slice()
+      //Date filter
+      let eventsCopy = events.slice()
 
-      // console.log("Standart")
-      // console.log(events)
-      // //console.log(eventsCopy)
+        if(ageOption === "Newest"){
+          eventsCopy = eventsCopy.sort((a, b) => new Date(b.date) - new Date(a.date));
+          //console.log("Newest")
+          //return console.log(eventsCopy.map(o => o.date))
+        }else{
+          eventsCopy = eventsCopy.sort((a, b) => new Date(a.date) - new Date(b.date));
+          //console.log("Oldest")
+          //return console.log(eventsCopy.map(o => o.date))
+        }
 
-      //   if(ageOption === "Newest"){
-      //     eventsCopy.sort((a, b) => a.date - b.date);
-      //     console.log("Newest")
-      //     return console.log(eventsCopy.map(o => o.title))
-      //   }else{
-      //     eventsCopy.sort((a, b) => b.date - a.date);
-      //     console.log("Oldest")
-      //     return console.log(eventsCopy.map(o => o.title))
-      //   }
-
-    //   const sortByAge = () => {
-
-    //     if(ageOption === "Newest"){
-
-    //       events.sort((a, b) => a.date - b.date);
-
-    //     }else{
-
-    //       events.sort((a, b) => b.date - a.date);
-    //     }
-    // }
 
   return (
     <>
@@ -69,16 +55,16 @@ function AllEvents() {
                 value={category}
                 onChange={(e)=>setCategory(e.target.value)}>
             </input>
-            <select>
-                <option>Newest</option>
-                <option>Oldest</option>
+            <select onInput={(e)=>setageOption(e.target.value)}>
+                <option value={"Newest"}>Newest</option>
+                <option value={"Oldest"}>Oldest</option>
             </select>
         </section>
         <section className='content'>
-            {events.length > 0 ? (
+            {eventsCopy.length > 0 ? (
                 <div className='goals'>
                     {
-                        events.map((event) => (
+                        eventsCopy.map((event) => (
                             <OneEvent key={event._id} event={event} category={category}/>
                         ))
                     }

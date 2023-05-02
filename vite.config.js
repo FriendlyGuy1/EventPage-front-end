@@ -7,7 +7,7 @@ export default defineConfig({ //if somebody touches this there a dead man
   // plugins: [vue()],
   server: {
     proxy: {
-      '/api': 'http://localhost:7050' // http://localhost:7050 | https://eventpage.onrender.com
+      '/api': 'https://eventpage.onrender.com'
     },
   },
   plugins: [react()],
