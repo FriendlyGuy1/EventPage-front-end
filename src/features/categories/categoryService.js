@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const API_URL = '/api/categories/'
 
-// Create new event
+// Get all categories
 const getCategories = async () => {
 
   const response = await axios.get(API_URL)
@@ -16,3 +16,4 @@ const categoriesService = {
 }
 
 export default categoriesService
+
