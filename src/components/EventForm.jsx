@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories, reset } from '../features/categories/categorySlice'
 import { createEvent } from '../features/events/eventSlice'
+import imageService from '../features/image/imageService'
+
 
 function EventForm() {
+  const inputRef = useRef(null);
+  let base64 = ""
 
   const dispatch = useDispatch()
 
@@ -14,7 +18,30 @@ function EventForm() {
   const [date, setDate] = useState('')
   const [image, setImage] = useState('')
 
-  
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const uploadImage = async (event) => {
+    const files = event.target.files;
+
+    if (files.length === 1) {
+      base64 = await convertBase64(files[0]);
+      setImage(await imageService.uploadSingleImage(base64))
+      return;
+    }
+  };
 
   const { categories } = useSelector(
     (state) => state.categories
@@ -39,6 +66,35 @@ function EventForm() {
   const onSubmit = (e) => {
     e.preventDefault()
 
+    if(title == ""){
+      alert("Title can't be empty")
+      return
+    }
+    if(category == ""){
+      alert("Must select a category")
+      return
+    } 
+    if(description == ""){
+      alert("Description can't be empty")
+      return
+    } 
+    if(place == ""){
+      alert("Place can't be empty")
+      return
+    } 
+    if(date == ""){
+      alert("Must select a date")
+      return
+    }
+    if(image == "" && base64 == ""){
+      alert("Must upload an image")
+      return
+    }
+    if(image == ""){
+      alert("Image still loading")
+      return
+    }  
+
     dispatch(createEvent({ title, category, description, place, date, image }))
     setTitle('')
     setCategory('')
@@ -46,6 +102,7 @@ function EventForm() {
     setPlace('')
     setDate('')
     setImage('')
+    inputRef.current.value = null;
   }
 
   return (
@@ -112,13 +169,12 @@ function EventForm() {
 
         <div className='form-group'>
           <label htmlFor='text'>Image</label>
-          <input
-            type='text'
-            name='image'
-            id='image'
-            value={image}
-            placeholder='image address'
-            onChange={(e) => setImage(e.target.value)}
+          <input 
+            ref={inputRef}
+            onChange={uploadImage}
+            className='ImageBackground' 
+            type="file"
+            accept="image/png, image/jpeg"
           />
         </div>
 
