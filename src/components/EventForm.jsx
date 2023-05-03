@@ -1,8 +1,12 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCategories, reset } from '../features/categories/categorySlice'
 import { createEvent } from '../features/events/eventSlice'
 
 function EventForm() {
+
+  const dispatch = useDispatch()
+
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
@@ -10,7 +14,27 @@ function EventForm() {
   const [date, setDate] = useState('')
   const [image, setImage] = useState('')
 
-  const dispatch = useDispatch()
+  
+
+  const { categories } = useSelector(
+    (state) => state.categories
+  )
+
+
+  useEffect(() => {
+
+    dispatch(getCategories())
+
+    return () => {
+      dispatch(reset())
+    }
+  }, [dispatch])
+  
+
+  const handleChange = (e) => {
+    setCategory(e.target.value);
+  };
+
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -27,53 +51,56 @@ function EventForm() {
   return (
     <section className='form'>
       <form onSubmit={onSubmit}>
-
         <div className='form-group'>
-          <label htmlFor='text'>title</label>
+          <label htmlFor='text'>Title</label>
           <input
             type='text'
             name='title'
             id='title'
             value={title}
+            placeholder='enter title'
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='text'>category</label>
-          <input
-            type='text'
-            name='category'
-            id='category'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
+          <label htmlFor='text'>Category</label>
+          <select onChange={handleChange}>
+            <option value="">--Please choose category--</option>
+            {
+              categories.map((cat,index) => (
+                <option key={index} value={cat.category}>{cat.category}</option>
+              ))
+            }
+          </select>
         </div>
 
         <div className='form-group'>
-          <label htmlFor='text'>description</label>
+          <label htmlFor='text'>Description</label>
           <input
             type='text'
             name='description'
             id='description'
             value={description}
+            placeholder='enter description'
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='text'>place</label>
+          <label htmlFor='text'>Place</label>
           <input
             type='text'
             name='place'
             id='place'
             value={place}
+            placeholder='enter place'
             onChange={(e) => setPlace(e.target.value)}
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='text'>date</label>
+          <label htmlFor='text'>Date</label>
           <input
             type='date'
             name='date'
@@ -84,12 +111,13 @@ function EventForm() {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='text'>image</label>
+          <label htmlFor='text'>Image</label>
           <input
             type='text'
             name='image'
             id='image'
             value={image}
+            placeholder='image address'
             onChange={(e) => setImage(e.target.value)}
           />
         </div>

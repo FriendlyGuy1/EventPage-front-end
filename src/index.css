@@ -133,6 +133,8 @@ h3 {
   text-align: left;
   display: block;
   margin: 0 0 5px 3px;
+  color: white;
+  font-weight: bold;
 }
 
 .btn {
@@ -217,7 +219,12 @@ h3 {
 .vaizdas {
   background-image: url("vaizdas.jpg");
   background-color: #cccccc;
-  background-repeat: no-repeat, repeat;
+  /* background-repeat: no-repeat, repeat; */
   background-position: center;
   background-size: cover;
  }
+
+img {
+  width: 500px;
+  height: 400px;
+}

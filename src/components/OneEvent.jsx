@@ -8,7 +8,6 @@ function OneEvent({ event, showDeleteButton, category }) {
   if(category === ""){
     return(
       <>
-      {/* <div>{new Date(event.createdAt).toLocaleString('en-US')}</div> */}
          <div className='goal'>
          <h2>{event.title}</h2>
          <h2>{event.category}</h2>
