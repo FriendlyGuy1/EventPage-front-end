@@ -101,7 +101,6 @@ function EventForm() {
     setDescription('')
     setPlace('')
     setDate('')
-    console.log(image)
     setImage('')
     inputRef.current.value = null;
   }
