@@ -48,7 +48,7 @@ function Dashboard() {
         {events.length > 0 ? (
           <div className='goals'>
             {events.map((event) => (
-              <OneEvent key={event._id} event={event} showDeleteButton={true}/>
+              <OneEvent key={event._id} event={event} showDeleteButton={true} category={""}/>
             ))}
           </div>
         ) : (
