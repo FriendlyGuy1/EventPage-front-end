@@ -95,8 +95,9 @@ h3 {
 .goal {
   background-color: #f4f4f4;
   margin: 10px 0;
-  padding: 20px 0 10px;
+  padding: 20px;
   position: relative;
+  border-radius: 30px;
 }
 
 .goal .close {
