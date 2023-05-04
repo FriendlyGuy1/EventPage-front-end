@@ -3,16 +3,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import OneEvent from '../components/OneEvent'
 import Spinner from '../components/Spinner'
 import { getEvents, reset } from '../features/events/eventSlice'
+import { getCategories} from '../features/categories/categorySlice'
 
 function AllEvents() {
     const dispatch = useDispatch()
 
       //Filter
       const [category, setCategory] = useState("")
-      const [ageOption, setageOption] = useState("Newest") // Oldest
+      const [ageOption, setageOption] = useState("Oldest") // Oldest
 
     const { events, isLoading, isError, message } = useSelector(
       (state) => state.events
+  )
+
+  const { categories } = useSelector(
+    (state) => state.categories
   )
     
     useEffect(() => {
@@ -21,6 +26,7 @@ function AllEvents() {
         }
     
         dispatch(getEvents())
+        dispatch(getCategories())
     
         return () => {
           dispatch(reset())
@@ -51,13 +57,18 @@ function AllEvents() {
         <h1>Events</h1>
       </section>
       <section>
-            <input
-                value={category}
-                onChange={(e)=>setCategory(e.target.value)}>
-            </input>
-            <select onInput={(e)=>setageOption(e.target.value)}>
-                <option value={"Newest"}>Newest</option>
-                <option value={"Oldest"}>Oldest</option>
+            <select className='categoryFilter' onInput={(e)=>setCategory(e.target.value)}>
+              <option value=""></option>
+              {
+                categories.map((cat, index) =>(
+                  <option key={index} value={cat.category}>{cat.category}</option>
+                ))
+              }
+            </select>
+            {/* idk what the hell to call the 2 options */}
+            <select className='dateFilter' onInput={(e)=>setageOption(e.target.value)}> 
+                <option value={"Oldest"}>Earliest</option>
+                <option value={"Newest"}>Latest</option>
             </select>
         </section>
         <section className='content'>

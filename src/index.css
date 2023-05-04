@@ -233,3 +233,15 @@ img {
 .ImageBackground{
   background-color: white;
 }
+
+.categoryFilter{
+  padding: 5px;
+  margin-right: 5px;
+  width: 200px;
+}
+
+.dateFilter{
+  padding: 5px;
+  width: 75px;
+  text-align: center;
+}
