@@ -10,7 +10,7 @@ function AllEvents() {
 
       //Filter
       const [category, setCategory] = useState("")
-      const [ageOption, setageOption] = useState("Oldest") // Oldest
+      const [ageOption, setageOption] = useState("empty")
 
     const { events, isLoading, isError, message } = useSelector(
       (state) => state.events
@@ -19,7 +19,6 @@ function AllEvents() {
   const { categories } = useSelector(
     (state) => state.categories
   )
-    
     useEffect(() => {
         if (isError) {
           console.log(message)
@@ -38,16 +37,58 @@ function AllEvents() {
       }
 
       //Date filter
-      let eventsCopy = events.slice()
+      let eventsCopy = events.slice();
+      let datenow = new Date(new Date().toDateString());
 
-        if(ageOption === "Newest"){
-          eventsCopy = eventsCopy.sort((a, b) => new Date(b.date) - new Date(a.date));
-          //console.log("Newest")
-          //return console.log(eventsCopy.map(o => o.date))
-        }else{
-          eventsCopy = eventsCopy.sort((a, b) => new Date(a.date) - new Date(b.date));
-          //console.log("Oldest")
-          //return console.log(eventsCopy.map(o => o.date))
+        if(ageOption === "today"){
+          eventsCopy = eventsCopy.filter((a) => new Date(a.date) === datenow );
+          //console.log(eventsCopy);
+
+        }else if(ageOption === "week"){
+
+          eventsCopy = eventsCopy.filter((a)=> new Date(a.date).getMonth() === datenow.getMonth())
+          
+          if(datenow.getDay() === 1){
+
+            let days = datenow.getDate()
+            let date1 = new Date(datenow)
+            let date2 = new Date(datenow.setDate(days+6))
+
+            // console.log(date1.getDate())
+            // console.log(datenow.getDate())
+
+            let eventsCopy1 = eventsCopy.filter((a) => new Date(a.date).getDate() >= date1.getDate());
+
+            // console.log(eventsCopy1)
+
+            eventsCopy = eventsCopy1.filter((a) => new Date(a.date).getDate() <= date2.getDate())
+
+            // console.log(eventsCopy)
+
+          }else{
+
+            let week = datenow.getDay()
+            week -= 1
+            let days = datenow.getDate()
+
+            let date1 = new Date(datenow.setDate(days-week))
+            let date2 = new Date(date1.setDate(days+6))
+
+            let eventsCopy1 = eventsCopy.filter((a) => new Date(a.date).getDate() >= date1.getDate());
+            console.log(eventsCopy1)
+
+            eventsCopy = eventsCopy1.filter((a) => new Date(a.date).getDate() <= date2.getDate())
+
+            console.log(eventsCopy)
+
+          }
+        }else if(ageOption === "month"){
+          eventsCopy = eventsCopy.filter((a) => new Date(a.date).getMonth() === datenow.getMonth() );
+          //console.log(eventsCopy);
+
+        }else if(ageOption === "later"){
+          eventsCopy = eventsCopy.filter((a) => new Date(a.date).getMonth() > datenow.getMonth() );
+          //console.log(eventsCopy);
         }
 
 
@@ -66,9 +107,12 @@ function AllEvents() {
               }
             </select>
             {/* idk what the hell to call the 2 options */}
-            <select className='dateFilter' onInput={(e)=>setageOption(e.target.value)}> 
-                <option value={"Oldest"}>Earliest</option>
-                <option value={"Newest"}>Latest</option>
+            <select className='dateFilter' onInput={(e)=>setageOption(e.target.value)}>
+                <option value={"empty"}></option> 
+                <option value={"today"}>Today</option>
+                <option value={"week"}>Week</option>
+                <option value={"month"}>Month</option>
+                <option value={"later"}>Later</option>
             </select>
         </section>
         <section className='content'>
