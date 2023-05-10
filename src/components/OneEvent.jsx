@@ -1,17 +1,32 @@
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { deleteEvent } from '../features/events/eventSlice'
 import UpdateEvent from './UpdateEvent'
 import { useState } from 'react'
+import { postFavourite } from '../features/favourite/favouriteSlice'
+import { useNavigate } from 'react-router-dom'
 
-function OneEvent({ event, showDeleteButton, category }) {
+function OneEvent({ event, showDeleteButton, showFavouriteButton, category }) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const { user } = useSelector((state) => state.auth)
 
   const [updateEvent, setUpdateEvent] = useState(false)
   const [showEvent, setShowEvent] = useState(true)
 
+
   const handleUpdate = () => {
     setUpdateEvent(true)
     setShowEvent(false)
+  }
+
+  const handleFavourite = () => {
+
+    if (!user) {
+      navigate('/login')
+    }
+
+    dispatch(postFavourite(event._id))
   }
 
 
@@ -32,6 +47,10 @@ function OneEvent({ event, showDeleteButton, category }) {
                 <button onClick={() => dispatch(deleteEvent(event._id))} className="btn btn-block">DELETE</button>
                 <button onClick={() => handleUpdate()} className="btn btn-block">UPDATE</button>
               </>
+            }
+
+            {showFavouriteButton &&
+              <button onClick={() => handleFavourite()} className="btn btn-block">ADD to Favourite</button>
             }
           </div>
         }
