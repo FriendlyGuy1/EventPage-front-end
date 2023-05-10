@@ -18,10 +18,11 @@ function UpdateEvent({event}) {
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
   const [place, setPlace] = useState('')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState('')  
   const [image, setImage] = useState('')
 
-
+  console.log(event.title)
+  // setTitle(event.title)
 
 
   const convertBase64 = (file) => {

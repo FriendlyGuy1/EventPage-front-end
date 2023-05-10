@@ -12,9 +12,9 @@ function AllEvents() {
       const [category, setCategory] = useState("")
       const [ageOption, setageOption] = useState("empty")
 
-    const { events, isLoading, isError, message } = useSelector(
-      (state) => state.events
-  )
+      const { events, isLoading, isError, message } = useSelector(
+        (state) => state.events
+      )
 
   const { categories } = useSelector(
     (state) => state.categories
@@ -120,7 +120,7 @@ function AllEvents() {
                 <div className='goals'>
                     {
                         eventsCopy.map((event) => (
-                            <OneEvent key={event._id} event={event} category={category}/>
+                            <OneEvent key={event._id} event={event} showFavouriteButton={true} category={category}/>
                         ))
                     }
                 </div>

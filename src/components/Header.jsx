@@ -22,13 +22,21 @@ function Header() {
       <div>
         <Link to='/events'>Events</Link>  
       </div>
+      
       <ul>
         {user ? (
+          <>
+          <div>
+              <Link to='/favouriteEvents'>Favourite Events</Link>  
+            </div>
           <li>
+            
             <button className='btn' onClick={onLogout}>
               <FaSignOutAlt /> Logout
             </button>
           </li>
+          </>
+          
         ) : (
           <>
             <li>
