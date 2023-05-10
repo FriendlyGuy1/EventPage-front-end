@@ -2,7 +2,7 @@
 import { useDispatch } from 'react-redux'
 import { deleteFavourite } from '../features/favourite/favouriteSlice'
 
-function FavouriteEvents({ event, favouriteEventID }) {
+function OneFavouriteEvent({ event, favouriteEventID }) {
     const dispatch = useDispatch()
 
     return(
@@ -20,5 +20,5 @@ function FavouriteEvents({ event, favouriteEventID }) {
     )
 }
 
-export default FavouriteEvents
+export default OneFavouriteEvent
 

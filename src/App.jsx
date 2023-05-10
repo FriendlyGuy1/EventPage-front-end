@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import AllEvents from './pages/AllEvents'
-import FavEvents from './pages/FavouriteEvents'
+import FavouriteEvents from './pages/FavouriteEvents'
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/favouriteEvents' element={<FavEvents />} />
+            <Route path='/favourites' element={<FavouriteEvents />} />
             <Route path='/' element={<Dashboard />} />
             <Route path='/events' element={<AllEvents />} />
             <Route path='/login' element={<Login />} />
