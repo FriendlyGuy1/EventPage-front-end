@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteEvent } from '../features/events/eventSlice'
 import UpdateEvent from './UpdateEvent'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { postFavourite } from '../features/favourite/favouriteSlice'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,11 +13,12 @@ function OneEvent({ event, showDeleteButton, showFavouriteButton, category }) {
 
   const [updateEvent, setUpdateEvent] = useState(false)
   const [showEvent, setShowEvent] = useState(true)
-
+  const [showCounter, setShowCounter] = useState(true)
 
   const handleUpdate = () => {
     setUpdateEvent(true)
     setShowEvent(false)
+    setShowCounter(false)
   }
 
   const handleFavourite = () => {
@@ -49,9 +50,14 @@ function OneEvent({ event, showDeleteButton, showFavouriteButton, category }) {
               </>
             }
 
-            {showFavouriteButton &&
-              <button onClick={() => handleFavourite()} className="btn btn-block">ADD to Favourite</button>
-            }
+            <div className='fav_container'>
+              {showFavouriteButton &&
+                <button onClick={() => handleFavourite()} className="btn btn-block fav">ADD to Favourite</button>
+              }
+              { showCounter &&
+                <h2 className='fav_counter'>{event.favorites}</h2>
+              }
+            </div>
           </div>
         }
           

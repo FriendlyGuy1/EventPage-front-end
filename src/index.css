@@ -139,7 +139,7 @@ h3 {
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 13px 20px;
   border: 1px solid #000;
   border-radius: 5px;
   background: #000;
@@ -244,4 +244,27 @@ img {
   padding: 5px;
   width: 75px;
   text-align: center;
+}
+
+.fav_container{
+  display: flex;
+  justify-content: center;
+}
+
+.fav{
+  width: 84%;
+  margin-right: 5px;
+}
+
+.fav_counter{
+  padding: 9px 20px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: #fff;
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  width: 14%;
+  height: 100%;
 }

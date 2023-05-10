@@ -75,11 +75,11 @@ function AllEvents() {
             let date2 = new Date(date1.setDate(days+6))
 
             let eventsCopy1 = eventsCopy.filter((a) => new Date(a.date).getDate() >= date1.getDate());
-            console.log(eventsCopy1)
+            //console.log(eventsCopy1)
 
             eventsCopy = eventsCopy1.filter((a) => new Date(a.date).getDate() <= date2.getDate())
 
-            console.log(eventsCopy)
+            //console.log(eventsCopy)
 
           }
         }else if(ageOption === "month"){
@@ -89,6 +89,10 @@ function AllEvents() {
         }else if(ageOption === "later"){
           eventsCopy = eventsCopy.filter((a) => new Date(a.date).getMonth() > datenow.getMonth() );
           //console.log(eventsCopy);
+        }
+        //something a litle extra 
+        else if(ageOption === "favs"){
+          eventsCopy = eventsCopy.sort((a, b)=> a.favorites < b.favorites)
         }
 
 
@@ -106,13 +110,13 @@ function AllEvents() {
                 ))
               }
             </select>
-            {/* idk what the hell to call the 2 options */}
             <select className='dateFilter' onInput={(e)=>setageOption(e.target.value)}>
                 <option value={"empty"}></option> 
                 <option value={"today"}>Today</option>
                 <option value={"week"}>Week</option>
                 <option value={"month"}>Month</option>
                 <option value={"later"}>Later</option>
+                <option value={"favs"}>Favorites</option>
             </select>
         </section>
         <section className='content'>
