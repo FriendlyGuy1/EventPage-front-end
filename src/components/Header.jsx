@@ -27,7 +27,7 @@ function Header() {
         {user ? (
           <>
           <div>
-              <Link to='/favouriteEvents'>Favourite Events</Link>  
+              <Link to='/favourites'>Favourite Events</Link>  
             </div>
           <li>
             

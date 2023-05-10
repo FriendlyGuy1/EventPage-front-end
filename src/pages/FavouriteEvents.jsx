@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../components/Spinner'
 import { getFavourites, reset } from '../features/favourite/favouriteSlice'
 import { getEvents } from '../features/events/eventSlice'
-import FavouriteEvents from '../components/OneFavouriteEvent'
+import OneFavouriteEvent from '../components/OneFavouriteEvent'
 
-function FavEvents() {
+function FavouriteEvents() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -49,7 +49,7 @@ function FavEvents() {
                     events.map((event) => (
                         favourites.map((fav) => (
                             fav.eventID === event._id ? (
-                                <FavouriteEvents key={event._id} event={event} favouriteEventID={fav._id}/>
+                                <OneFavouriteEvent key={event._id} event={event} favouriteEventID={fav._id}/>
                             ) : (null)
                         ))
                     ))
@@ -63,4 +63,4 @@ function FavEvents() {
   )
 }
 
-export default FavEvents
+export default FavouriteEvents
