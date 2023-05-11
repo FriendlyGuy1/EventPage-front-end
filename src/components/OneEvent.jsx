@@ -14,6 +14,7 @@ function OneEvent({ event, showFavouriteButton, category }) {
   const [updateEvent, setUpdateEvent] = useState(false)
   const [showEvent, setShowEvent] = useState(true)
   const [showDeleteButton, setShowDeleteButton] = useState(false)
+  const [showCounter, setShowCounter] = useState(true)
   
   useEffect(() => {
     if (user.role === 'admin') {
@@ -26,9 +27,11 @@ function OneEvent({ event, showFavouriteButton, category }) {
     }
   })
 
+
   const handleUpdate = () => {
     setUpdateEvent(true)
     setShowEvent(false)
+    setShowCounter(false)
   }
 
   const handleFavourite = () => {
@@ -60,9 +63,14 @@ function OneEvent({ event, showFavouriteButton, category }) {
               </>
             }
 
-            {showFavouriteButton &&
-              <button onClick={() => handleFavourite()} className="btn btn-block">ADD to Favourite</button>
-            }
+            <div className='fav_container'>
+              {showFavouriteButton &&
+                <button onClick={() => handleFavourite()} className="btn btn-block fav">ADD to Favourite</button>
+              }
+              { showCounter && 
+                <h2 className='fav_counter'>{event.favorites}</h2>
+              }
+            </div>
           </div>
         }
           
