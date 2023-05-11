@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import AllEvents from './pages/AllEvents'
 import FavouriteEvents from './pages/FavouriteEvents'
+import AdminPanel from './pages/AdminPanel'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/favourites' element={<FavouriteEvents />} />
+            <Route path='/adminPanel' element={<AdminPanel />} />
             <Route path='/' element={<Dashboard />} />
             <Route path='/events' element={<AllEvents />} />
             <Route path='/login' element={<Login />} />

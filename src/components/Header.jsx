@@ -14,29 +14,45 @@ function Header() {
     navigate('/')
   }
 
+  const Admin = () => {
+    if (user.role === "admin") {
+      return (
+        <div>
+          <Link to='/adminPanel'>AdminPanel</Link>
+        </div>
+      )
+    }
+  }
+
+
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>Create Event</Link>  
+        <Link to='/'>Create Event</Link>
       </div>
       <div>
-        <Link to='/events'>Events</Link>  
+        <Link to='/events'>Events</Link>
       </div>
-      
+      {user ? (
+        <Admin />
+      ) : (
+        <div className='myHidden'>
+        </div>
+      )}
       <ul>
         {user ? (
           <>
-          <div>
-              <Link to='/favourites'>Favourite Events</Link>  
+            <div>
+              <Link to='/favourites'>Favourite Events</Link>
             </div>
-          <li>
-            
-            <button className='btn' onClick={onLogout}>
-              <FaSignOutAlt /> Logout
-            </button>
-          </li>
+            <li>
+
+              <button className='btn' onClick={onLogout}>
+                <FaSignOutAlt /> Logout
+              </button>
+            </li>
           </>
-          
+
         ) : (
           <>
             <li>
