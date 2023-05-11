@@ -3,6 +3,7 @@ import authReducer from '../features/auth/authSlice'
 import eventReducer from '../features/events/eventSlice'
 import categoryReducer from '../features/categories/categorySlice'
 import favouriteReducer from '../features/favourite/favouriteSlice'
+import userReducer from '../features/usercontrol/userSlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     events: eventReducer,
     categories: categoryReducer,
     favourites: favouriteReducer,
+    users: userReducer,
   },
 })

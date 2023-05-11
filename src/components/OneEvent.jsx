@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteEvent } from '../features/events/eventSlice'
 import UpdateEvent from './UpdateEvent'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { postFavourite } from '../features/favourite/favouriteSlice'
 import { useNavigate } from 'react-router-dom'
 
-function OneEvent({ event, showDeleteButton, showFavouriteButton, category }) {
+function OneEvent({ event, showFavouriteButton, category }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -13,7 +13,20 @@ function OneEvent({ event, showDeleteButton, showFavouriteButton, category }) {
 
   const [updateEvent, setUpdateEvent] = useState(false)
   const [showEvent, setShowEvent] = useState(true)
+  const [showDeleteButton, setShowDeleteButton] = useState(false)
   const [showCounter, setShowCounter] = useState(true)
+  
+  useEffect(() => {
+    if (user.role === 'admin') {
+      console.log("admin");
+      setShowDeleteButton(true)
+    }
+    else if (user._id === event.user) {
+      console.log("same user");
+      setShowDeleteButton(true)
+    }
+  })
+
 
   const handleUpdate = () => {
     setUpdateEvent(true)

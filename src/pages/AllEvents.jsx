@@ -7,6 +7,7 @@ import { getCategories} from '../features/categories/categorySlice'
 
 function AllEvents() {
     const dispatch = useDispatch()
+    const { user } = useSelector((state) => state.auth)
 
       //Filter
       const [category, setCategory] = useState("")
@@ -33,7 +34,7 @@ function AllEvents() {
           dispatch(reset())
         }
       }, [isError, message, dispatch])
-    
+      
       if (isLoading) {
         return <Spinner />
       }
