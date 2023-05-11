@@ -11,6 +11,7 @@ function AllEvents() {
       //Filter
       const [category, setCategory] = useState("")
       const [ageOption, setageOption] = useState("empty")
+      const [sortMemory, setSortMemory] = useState("sort_choice0")
 
       const { events, isLoading, isError, message } = useSelector(
         (state) => state.events
@@ -20,13 +21,14 @@ function AllEvents() {
     (state) => state.categories
   )
     useEffect(() => {
+
         if (isError) {
           console.log(message)
         }
     
         dispatch(getEvents())
         dispatch(getCategories())
-    
+
         return () => {
           dispatch(reset())
         }
@@ -34,6 +36,14 @@ function AllEvents() {
     
       if (isLoading) {
         return <Spinner />
+      }
+
+      const changeActive = (e) => {
+        console.log(e);
+
+        document.getElementById(sortMemory).classList.remove("active")
+        document.getElementById(e).classList.add('active')
+        setSortMemory(e)
       }
 
       //Date filter
@@ -102,21 +112,29 @@ function AllEvents() {
         <h1>Events</h1>
       </section>
       <section>
-            <select className='categoryFilter' onInput={(e)=>setCategory(e.target.value)}>
-              <option value=""></option>
-              {
+            <div className='sort'>
+              <button id={"sort_choice0"} className='sort_category active' onClick={(e)=>{
+                setCategory("")
+                changeActive(e.target.id)
+                }}>All</button>
+            {
                 categories.map((cat, index) =>(
-                  <option key={index} value={cat.category}>{cat.category}</option>
+                  <button id={`sort_choice${index+1}`}  className='sort_category' key={index} onClick={
+                    (e)=>{
+                    setCategory(cat.category)
+                    changeActive(e.target.id)
+                  }}>{cat.category}</button>
                 ))
               }
-            </select>
-            <select className='dateFilter' onInput={(e)=>setageOption(e.target.value)}>
-                <option value={"empty"}></option> 
+            </div>
+            <select className='dateFilter' defaultValue={""} onInput={(e)=>setageOption(e.target.value)}>
+                <option value={""} disabled hidden>Sort by</option>
+                <option value={"empty"}>None</option> 
                 <option value={"today"}>Today</option>
-                <option value={"week"}>Week</option>
-                <option value={"month"}>Month</option>
+                <option value={"week"}>This Week</option>
+                <option value={"month"}>This Month</option>
                 <option value={"later"}>Later</option>
-                <option value={"favs"}>Favorites</option>
+                <option value={"favs"}>Most Favorites</option>
             </select>
         </section>
         <section className='content'>

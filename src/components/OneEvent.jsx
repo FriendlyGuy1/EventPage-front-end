@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteEvent } from '../features/events/eventSlice'
 import UpdateEvent from './UpdateEvent'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { postFavourite } from '../features/favourite/favouriteSlice'
 import { useNavigate } from 'react-router-dom'
 
@@ -54,7 +54,7 @@ function OneEvent({ event, showDeleteButton, showFavouriteButton, category }) {
               {showFavouriteButton &&
                 <button onClick={() => handleFavourite()} className="btn btn-block fav">ADD to Favourite</button>
               }
-              { showCounter &&
+              { showCounter && 
                 <h2 className='fav_counter'>{event.favorites}</h2>
               }
             </div>
