@@ -18,21 +18,17 @@ function FavouriteEvents() {
   )
 
   useEffect(() => {
-    if (isError) {
-      console.log(message)
-    }
-
-    dispatch(getEvents())   
-    dispatch(getFavourites())
-
-    return () => {
+    
+    if (message.success === 'Favorite deleted') {
       dispatch(reset())
     }
-  }, [navigate, isError, message, dispatch])
+    dispatch(getEvents())   
+    dispatch(getFavourites())
+    
+  }, [navigate, dispatch, message])
 
-
-  if (isLoading || favourites == undefined) {
-    return <Spinner />
+  if (favourites === undefined) {
+    return (<h3>NO FAVOURITE EVENTS</h3>)
   }
 
   return (
@@ -42,12 +38,11 @@ function FavouriteEvents() {
       </section>
 
 
-      <section className='content'>
-        {events.length > 0 ? (
+      <section className='content'> 
             <div className='goals'>
                 {
-                    events.map((event) => (
-                        favourites.map((fav) => (
+                    events?.map((event) => (
+                        favourites?.map((fav) => (
                             fav.eventID === event._id ? (
                                 <OneFavouriteEvent key={event._id} event={event} favouriteEventID={fav._id}/>
                             ) : (null)
@@ -55,9 +50,6 @@ function FavouriteEvents() {
                     ))
                 }
             </div>
-            ) : (
-            <h3>Favourite Events not Found</h3>
-        )}
     </section>
     </>
   )
