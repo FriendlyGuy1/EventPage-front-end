@@ -15,28 +15,50 @@ function AdminPanel() {
 
         dispatch(getCategories())
 
-        return () =>{
+        return () => {
             dispatch(reset())
         }
     }, [dispatch])
 
+
+    function refresh() {
+        dispatch(getCategories())
+        dispatch(reset())
+
+    }
     //Creates new category
     const [category, setCategory] = useState('')
 
     const onSubmit = (e) => {
         e.preventDefault()
         dispatch(postCategory({ category }))
+        setTimeout(refresh, 200)
+
     }
 
     // change category name
+
+    function refresh() {
+        dispatch(getCategories())
+        dispatch(reset())
+
+    }
     const [newName, setNewName] = useState('')
 
     const change = (chosenId) => {
         console.log("hello");
         console.log(newName);
         dispatch(changeACategory({ chosenId, newName }))
+        setTimeout(refresh, 200)
     }
+
     //===========================
+
+    const deleteACategory = (id) => {
+        dispatch(deleteCategory(id))
+        setTimeout(refresh, 200)
+
+    }
     return (
         <div>
             <div>
@@ -51,7 +73,7 @@ function AdminPanel() {
                 {categories.map((Acategory) => (
                     <div key={Acategory._id}>
                         <h2>{Acategory.category}</h2>
-                        <button onClick={() => dispatch(deleteCategory(Acategory._id))}>remove</button>
+                        <button onClick={() => deleteACategory(Acategory._id)}>remove</button>
                         <input type="text"
                             placeholder="Add new category name"
                             onChange={(e) => setNewName(e.target.value)}
@@ -60,9 +82,9 @@ function AdminPanel() {
                     </div>
                 ))}
             </div>
-                
+
             <div>
-                <AdminUsers/>
+                <AdminUsers />
             </div>
         </div>
 
