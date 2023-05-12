@@ -17,7 +17,10 @@ function OneEvent({ event, showFavouriteButton, category }) {
   const [showCounter, setShowCounter] = useState(true)
   
   useEffect(() => {
-    if (user.role === 'admin') {
+    if (user === null) {
+      console.log('hi');
+    }
+    else if (user.role === 'admin') {
       console.log("admin");
       setShowDeleteButton(true)
     }
