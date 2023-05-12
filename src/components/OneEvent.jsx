@@ -25,7 +25,7 @@ function OneEvent({ event, showFavouriteButton, category }) {
       console.log("same user");
       setShowDeleteButton(true)
     }
-  })
+  }, [])
 
 
   const handleUpdate = () => {
