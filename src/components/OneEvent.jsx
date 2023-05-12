@@ -16,7 +16,10 @@ function OneEvent({ event, showFavouriteButton, category }) {
   const [showDeleteButton, setShowDeleteButton] = useState(false)
   
   useEffect(() => {
-    if (user.role === 'admin') {
+    if (user === null) {
+      console.log('hi');
+    }
+    else if (user.role === 'admin') {
       console.log("admin");
       setShowDeleteButton(true)
     }

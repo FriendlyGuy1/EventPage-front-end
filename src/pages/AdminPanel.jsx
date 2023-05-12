@@ -6,7 +6,7 @@ import AdminUsers from "../components/AdminUsers"
 function AdminPanel() {
     const dispatch = useDispatch()
 
-
+    
     const { categories } = useSelector(
         (state) => state.categories
     )
@@ -15,7 +15,7 @@ function AdminPanel() {
 
         dispatch(getCategories())
 
-        return () => {
+        return () =>{
             dispatch(reset())
         }
     }, [dispatch])
@@ -82,9 +82,9 @@ function AdminPanel() {
                     </div>
                 ))}
             </div>
-
+                
             <div>
-                <AdminUsers />
+                <AdminUsers/>
             </div>
         </div>
 
