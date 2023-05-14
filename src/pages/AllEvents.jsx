@@ -40,7 +40,6 @@ function AllEvents() {
       }
 
       const changeActive = (e) => {
-        console.log(e);
 
         document.getElementById(sortMemory).classList.remove("active")
         document.getElementById(e).classList.add('active')
@@ -48,12 +47,11 @@ function AllEvents() {
       }
 
       //Date filter
-      let eventsCopy = events.slice();
+      let eventsCopy = events.filter((event) => event.approved).slice();
       let datenow = new Date(new Date().toDateString());
 
         if(ageOption === "today"){
           eventsCopy = eventsCopy.filter((a) => new Date(a.date) === datenow );
-          //console.log(eventsCopy);
 
         }else if(ageOption === "week"){
 
@@ -65,16 +63,9 @@ function AllEvents() {
             let date1 = new Date(datenow)
             let date2 = new Date(datenow.setDate(days+6))
 
-            // console.log(date1.getDate())
-            // console.log(datenow.getDate())
-
             let eventsCopy1 = eventsCopy.filter((a) => new Date(a.date).getDate() >= date1.getDate());
 
-            // console.log(eventsCopy1)
-
             eventsCopy = eventsCopy1.filter((a) => new Date(a.date).getDate() <= date2.getDate())
-
-            // console.log(eventsCopy)
 
           }else{
 
@@ -86,20 +77,17 @@ function AllEvents() {
             let date2 = new Date(date1.setDate(days+6))
 
             let eventsCopy1 = eventsCopy.filter((a) => new Date(a.date).getDate() >= date1.getDate());
-            //console.log(eventsCopy1)
 
             eventsCopy = eventsCopy1.filter((a) => new Date(a.date).getDate() <= date2.getDate())
-
-            //console.log(eventsCopy)
 
           }
         }else if(ageOption === "month"){
           eventsCopy = eventsCopy.filter((a) => new Date(a.date).getMonth() === datenow.getMonth() );
-          //console.log(eventsCopy);
+
 
         }else if(ageOption === "later"){
           eventsCopy = eventsCopy.filter((a) => new Date(a.date).getMonth() > datenow.getMonth() );
-          //console.log(eventsCopy);
+          
         }
         //something a litle extra 
         else if(ageOption === "favs"){

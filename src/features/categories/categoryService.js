@@ -46,9 +46,6 @@ const changeCategory = async (chosenId, newName, token) => {
     },
   }
 
-  console.log(API_UPDATE);
-  console.log(chosenChangeCategoryName);
-
   const response = await axios.put(API_UPDATE, newName, config)
   return response
 

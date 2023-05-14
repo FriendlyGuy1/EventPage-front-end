@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteCategory, postCategory, changeACategory, getCategories, reset } from "../features/categories/categorySlice"
 import AdminUsers from "../components/AdminUsers"
+import EventApproval from "../components/EventApproval"
 
 function AdminPanel() {
     const dispatch = useDispatch()
 
-    
+
     const { categories } = useSelector(
         (state) => state.categories
     )
@@ -15,7 +16,7 @@ function AdminPanel() {
 
         dispatch(getCategories())
 
-        return () =>{
+        return () => {
             dispatch(reset())
         }
     }, [dispatch])
@@ -46,8 +47,6 @@ function AdminPanel() {
     const [newName, setNewName] = useState('')
 
     const change = (chosenId) => {
-        console.log("hello");
-        console.log(newName);
         dispatch(changeACategory({ chosenId, newName }))
         setTimeout(refresh, 200)
     }
@@ -61,6 +60,9 @@ function AdminPanel() {
     }
     return (
         <div>
+            <div className="approvalWindow">
+                <EventApproval/>
+            </div>
             <div>
                 <form onSubmit={onSubmit}>
                     <input type="text"
@@ -82,9 +84,9 @@ function AdminPanel() {
                     </div>
                 ))}
             </div>
-                
+
             <div>
-                <AdminUsers/>
+                <AdminUsers />
             </div>
         </div>
 
