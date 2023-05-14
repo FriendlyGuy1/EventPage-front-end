@@ -67,7 +67,6 @@ export const changeACategory = createAsyncThunk(
   async (chosenId, newName, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
-      console.log("hi");
       return await categoryService.changeCategory(chosenId, newName, token)
     } catch (error) {
       const message =

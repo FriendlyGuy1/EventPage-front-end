@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteEvent } from '../features/events/eventSlice'
+import { deleteEvent, updateEvent} from '../features/events/eventSlice'
 import UpdateEvent from './UpdateEvent'
 import { useEffect, useState } from 'react'
 import { postFavourite } from '../features/favourite/favouriteSlice'
@@ -11,21 +11,21 @@ function OneEvent({ event, showFavouriteButton, category }) {
 
   const { user } = useSelector((state) => state.auth)
 
-  const [updateEvent, setUpdateEvent] = useState(false)
+  const [updateevent, setUpdateEvent] = useState(false)
   const [showEvent, setShowEvent] = useState(true)
   const [showDeleteButton, setShowDeleteButton] = useState(false)
   const [showCounter, setShowCounter] = useState(true)
+  const [showDisapproval, setShowDisapproval] = useState(false)
   
   useEffect(() => {
     if (user === null) {
-      console.log('hi');
+      
     }
     else if (user.role === 'admin') {
-      console.log("admin");
       setShowDeleteButton(true)
+      setShowDisapproval(true)
     }
     else if (user._id === event.user) {
-      console.log("same user");
       setShowDeleteButton(true)
     }
   }, [])
@@ -46,6 +46,15 @@ function OneEvent({ event, showFavouriteButton, category }) {
     dispatch(postFavourite(event._id))
   }
 
+  const handleDisapproval = () => {
+    
+    let updatedDisapproval = {
+      approved: false,
+      _id: event._id
+    }
+
+    dispatch(updateEvent(updatedDisapproval))
+  }
 
   //standart
   if(category === ""){
@@ -66,6 +75,10 @@ function OneEvent({ event, showFavouriteButton, category }) {
               </>
             }
 
+            {showDisapproval &&
+              <button onClick={handleDisapproval} className="btn btn-block">Remove Approval</button>
+            }
+
             <div className='fav_container'>
               {showFavouriteButton &&
                 <button onClick={() => handleFavourite()} className="btn btn-block fav">ADD to Favourite</button>
@@ -77,7 +90,7 @@ function OneEvent({ event, showFavouriteButton, category }) {
           </div>
         }
           
-        {updateEvent && 
+        {updateevent && 
           <UpdateEvent event={event}/>
         }
       </>

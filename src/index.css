@@ -320,3 +320,70 @@ img {
   color: #e0bf03;
   transition: 0.2s;
 }
+
+
+
+.goalsApproval {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width:100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.goalApproval {
+  display:inline-block;
+  background-color: #f4f4f4;
+  margin: 10px 0;
+  padding: 20px;
+  position: relative;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+
+.buttons {
+  width: 100px;
+  margin: 0 auto;
+  display: inline;
+}
+
+.approveBtn {
+  padding: 13px 20px;
+  border: 1px solid green;
+  border-radius: 5px;
+  background: green;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  margin-right: 5px;
+}
+
+.disapproveBtn {
+  padding: 13px 20px;
+  border: 1px solid red;
+  border-radius: 5px;
+  background: red;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  margin-right: 5px;
+}
+
+
+.approveBtn-block {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+
+.approvalWindow {
+  border-bottom: 2px solid rgb(17, 16, 16);
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
