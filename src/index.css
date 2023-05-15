@@ -516,12 +516,14 @@ img {
 
 .goalApproval {
   display:inline-block;
-  background-color: #f4f4f4;
+  background-color: #2c2c2b;
   margin: 10px 0;
-  padding: 20px;
+  padding: 13px;
   position: relative;
-  border-radius: 30px;
+  border-radius: 20px;
   margin-right: 10px;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25),
+  -15px -15px 30px rgb(60, 60, 60);
 }
 
 .buttons {
