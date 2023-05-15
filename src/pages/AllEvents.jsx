@@ -97,9 +97,6 @@ function AllEvents() {
 
   return (
     <>
-      <section className='heading'>
-        <h1>Events</h1>
-      </section>
       <section>
             <div className='sort'>
               <button id={"sort_choice0"} className='sort_category active' onClick={(e)=>{
@@ -125,6 +122,9 @@ function AllEvents() {
                 <option value={"later"}>Later</option>
                 <option value={"favs"}>Most Favorites</option>
             </select>
+        </section>
+        <section className='heading'>
+          <h1>Events</h1>
         </section>
         <section className='content'>
             {eventsCopy.length > 0 ? (
