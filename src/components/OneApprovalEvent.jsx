@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteEvent, updateEvent } from "../features/events/eventSlice";
+import { MdOutlinePlace } from "react-icons/md";
 
 function OneApprovalEvent({ event }) {
   const dispatch = useDispatch();
@@ -21,15 +22,19 @@ function OneApprovalEvent({ event }) {
     dispatch(deleteEvent(event._id));
   };
 
+  let newDate = event.date.slice(0, 10)
+
   return (
     <>
       <div className="goalApproval">
-        <img src={event.image} alt="No Image"></img>
-        <h2>Title: {event.title}</h2>
-        <h2>Category :{event.category}</h2>
-        <h2>Description: {event.description}</h2>
-        <h2>Place: {event.place}</h2>
-        <h2>Date: {event.date}</h2>
+            <img src={event.image} alt="No Image"></img>
+            <h2 className='title'>{event.title}</h2>
+            <p className="description">{event.description}</p>
+            <h4 className='eventplace'><MdOutlinePlace /> {event.place}</h4>
+            <h2>{newDate}</h2>
+            <div className="types">
+              <span className="project-type">• {event.category}</span>
+            </div>
         <div className="buttons">
           <button
             onClick={handleApproval}

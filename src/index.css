@@ -526,6 +526,11 @@ img {
   -15px -15px 30px rgb(60, 60, 60);
 }
 
+.goalApproval .description {
+  word-break: keep-all;
+  white-space: pre-wrap;
+}
+
 .buttons {
   width: 100px;
   margin: 0 auto;
