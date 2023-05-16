@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/api/events/'
+const API_URL = process.env.NODE_ENV === "production" ? "https://eventpage.onrender.com/api/events/" : '/api/events/'
 
 // Create new event
 const createEvent = async (eventData, token) => {

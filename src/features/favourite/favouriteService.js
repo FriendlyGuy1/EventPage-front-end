@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/api/favorites/'
+const API_URL = process.env.NODE_ENV === "production" ? "https://eventpage.onrender.com/api/favorites/" : '/api/favorites/'
 
 // Post favourite event
 const postFavourite = async (token, eventID) => {

@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const API_GET = '/api/categories/'
-const API_SEND = '/api/categories/'
+const API_URL = process.env.NODE_ENV === "production" ? "https://eventpage.onrender.com/api/categories/" : '/api/categories/'
 
 const getCategories = async () => {
 
-  const response = await axios.get(API_GET)
+  const response = await axios.get(API_URL)
 
   return response.data
 }
@@ -17,13 +16,13 @@ const postCategories = async (category, token) => {
     },
   }
 
-  const response = await axios.post(API_SEND, category, config)
+  const response = await axios.post(API_URL, category, config)
 
   return response.data
 }
 
 const removeCategory = async (id, token) => {
-  const API_REMOVE = `/api/categories/${id}`
+  const API_REMOVE = process.env.NODE_ENV === "production" ? `https://eventpage.onrender.com/api/categories/${id}` : `/api/categories/${id}`
 
   const config = {
     headers: {
@@ -38,8 +37,8 @@ const removeCategory = async (id, token) => {
 }
 
 const changeCategory = async (chosenId, newName, token) => {
-  const API_UPDATE = `/api/categories/${chosenId}`
-
+  const API_UPDATE = process.env.NODE_ENV === "production" ? `https://eventpage.onrender.com/api/categories/${chosenId}` : `/api/categories/${chosenId}`
+  
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

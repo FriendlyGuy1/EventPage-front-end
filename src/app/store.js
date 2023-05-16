@@ -13,4 +13,5 @@ export const store = configureStore({
     favourites: favouriteReducer,
     users: userReducer,
   },
+  devTools: false
 })
