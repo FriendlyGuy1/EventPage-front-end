@@ -508,7 +508,7 @@ img {
 
 .goalsApproval {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-auto-flow: column;
   width:100%;
   overflow-x: scroll;
   white-space: nowrap;
