@@ -1,29 +1,24 @@
+import { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getCategories, reset } from "../features/categories/categorySlice";
+import { updateEvent } from "../features/events/eventSlice";
+import imageService from "../features/image/imageService";
 
-import { useEffect, useState, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getCategories, reset } from '../features/categories/categorySlice'
-import { updateEvent } from '../features/events/eventSlice'
-import imageService from '../features/image/imageService'
-
-
-
-function UpdateEvent({event}) {
-
+function UpdateEvent({ event, updateBackButton }) {
   const inputRef = useRef(null);
-  let base64 = ""
+  let base64 = "";
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [title, setTitle] = useState('')
-  const [category, setCategory] = useState('')
-  const [description, setDescription] = useState('')
-  const [place, setPlace] = useState('')
-  const [date, setDate] = useState('')  
-  const [image, setImage] = useState('')
-
-  console.log(event.title)
-  // setTitle(event.title)
-
+  const [editEvent, setEditEvent] = useState({
+    title: event.title,
+    category: event.category,
+    description: event.description,
+    place: event.place,
+    date: event.date.slice(0, 10),
+    image: event.image,
+    _id: event._id,
+  });
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -45,167 +40,172 @@ function UpdateEvent({event}) {
 
     if (files.length === 1) {
       base64 = await convertBase64(files[0]);
-      setImage(await imageService.uploadSingleImage(base64))
+      setImage(await imageService.uploadSingleImage(base64));
       return;
     }
   };
 
-  const { categories } = useSelector(
-    (state) => state.categories
-  )
-
+  const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
-
-    dispatch(getCategories())
+    dispatch(getCategories());
 
     return () => {
-      dispatch(reset())
-    }
-  }, [dispatch])
-  
+      dispatch(reset());
+    };
+  }, [dispatch]);
 
   const handleChange = (e) => {
-    setCategory(e.target.value);
+    setEditEvent({ ...editEvent, category: e.target.value });
   };
 
-
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if(title == ""){
-      alert("Title can't be empty")
-      return
+    if (editEvent.title == "") {
+      alert("Title can't be empty");
+      return;
     }
-    if(category == ""){
-      alert("Must select a category")
-      return
-    } 
-    if(description == ""){
-      alert("Description can't be empty")
-      return
-    } 
-    if(place == ""){
-      alert("Place can't be empty")
-      return
-    } 
-    if(date == ""){
-      alert("Must select a date")
-      return
+    if (editEvent.category == "") {
+      alert("Must select a category");
+      return;
     }
-    if(image == "" && base64 == ""){
-      alert("Must upload an image")
-      return
+    if (editEvent.description == "") {
+      alert("Description can't be empty");
+      return;
     }
-    if(image == ""){
-      alert("Image still loading")
-      return
-    }  
-
-
-    let updatedEvent = {
-      category : category,
-      date : date,
-      description: description,
-      image: image,
-      place: place,
-      title: title,
-      _id: event._id
+    if (editEvent.place == "") {
+      alert("Place can't be empty");
+      return;
+    }
+    if (editEvent.date == "") {
+      alert("Must select a date");
+      return;
     }
 
+    // if(image == "" && base64 == ""){
+    //   alert("Must upload an image")
+    //   return
+    // }
+    // if(image == ""){
+    //   alert("Image still loading")
+    //   return
+    // }
 
-    dispatch(updateEvent(updatedEvent))
-    
-    setTitle('')
-    setCategory('')
-    setDescription('')
-    setPlace('')
-    setDate('')
-    setImage('')
-    inputRef.current.value = null;
-  }
+    dispatch(updateEvent(editEvent));
+  };
 
   return (
-    <section className='form'>
+    <section className="form">
       <form onSubmit={onSubmit}>
-        <div className='form-group'>
-          <label htmlFor='text'>Title</label>
+        <div className="form-group">
+          <label htmlFor="text">Title</label>
           <input
-            type='text'
-            name='title'
-            id='title'
-            value={title}
-            placeholder='enter title'
-            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            name="title"
+            id="title"
+            value={editEvent.title}
+            placeholder="enter title"
+            onChange={(e) => {
+              setEditEvent({
+                ...editEvent,
+                title: e.target.value,
+              });
+            }}
           />
         </div>
 
-        <div className='form-group'>
-          <label htmlFor='text'>Category</label>
+        <div className="form-group">
+          <label htmlFor="text">Category</label>
           <select onChange={handleChange}>
-            <option value="">--Please choose category--</option>
-            {
-              categories.map((cat,index) => (
-                <option key={index} value={cat.category}>{cat.category}</option>
-              ))
-            }
+            <option value="">{editEvent.category}</option>
+            {categories.map((cat, index) => (
+              <option key={index} value={cat.category}>
+                {cat.category}
+              </option>
+            ))}
           </select>
         </div>
 
-        <div className='form-group'>
-          <label htmlFor='text'>Description</label>
+        <div className="form-group">
+          <label htmlFor="text">Description</label>
           <input
-            type='text'
-            name='description'
-            id='description'
-            value={description}
-            placeholder='enter description'
-            onChange={(e) => setDescription(e.target.value)}
+            type="text"
+            name="description"
+            id="description"
+            value={editEvent.description}
+            placeholder="enter description"
+            onChange={(e) => {
+              setEditEvent({
+                ...editEvent,
+                description: e.target.value,
+              });
+            }}
           />
         </div>
 
-        <div className='form-group'>
-          <label htmlFor='text'>Place</label>
+        <div className="form-group">
+          <label htmlFor="text">Place</label>
           <input
-            type='text'
-            name='place'
-            id='place'
-            value={place}
-            placeholder='enter place'
-            onChange={(e) => setPlace(e.target.value)}
+            type="text"
+            name="place"
+            id="place"
+            value={editEvent.place}
+            placeholder="enter place"
+            onChange={(e) => {
+              setEditEvent({
+                ...editEvent,
+                place: e.target.value,
+              });
+            }}
           />
         </div>
 
-        <div className='form-group'>
-          <label htmlFor='text'>Date</label>
+        <div className="form-group">
+          <label htmlFor="text">Date</label>
           <input
-            type='date'
-            name='date'
-            id='date'
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            type="date"
+            name="date"
+            id="date"
+            value={editEvent.date}
+            onChange={(e) => {
+              setEditEvent({
+                ...editEvent,
+                date: e.target.value,
+              });
+            }}
           />
         </div>
 
-        <div className='form-group'>
-          <label htmlFor='text'>Image</label>
-          <input 
+        <div className="form-group">
+          <label htmlFor="text">Image</label>
+          <input
             ref={inputRef}
             onChange={uploadImage}
-            className='ImageBackground' 
+            className="ImageBackground"
             type="file"
             accept="image/png, image/jpeg"
           />
         </div>
 
-        <div className='form-group'>
-          <button className='btn btn-block' type='submit'>
+        <div className="form-group">
+          <button className="btn btn-block" type="submit">
             Update Event
+          </button>
+        </div>
+
+        <div className="form-group">
+          <button
+            className="btn btn-block"
+            type="submit"
+            onClick={() => updateBackButton(false)}
+          >
+            BACK
           </button>
         </div>
       </form>
     </section>
-  )
+  );
 }
 
-export default UpdateEvent
+export default UpdateEvent;
