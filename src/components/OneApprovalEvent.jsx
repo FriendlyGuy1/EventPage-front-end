@@ -22,7 +22,6 @@ function OneApprovalEvent({ event }) {
     dispatch(deleteEvent(event._id));
   };
 
-  let newDate = event.date.slice(0, 10)
 
   return (
     <>
@@ -31,7 +30,7 @@ function OneApprovalEvent({ event }) {
             <h2 className='title'>{event.title}</h2>
             <p className="description">{event.description}</p>
             <h4 className='eventplace'><MdOutlinePlace /> {event.place}</h4>
-            <h2>{newDate}</h2>
+            <h2>{event.date.slice(0, 10)}</h2>
             <div className="types">
               <span className="project-type">• {event.category}</span>
             </div>
