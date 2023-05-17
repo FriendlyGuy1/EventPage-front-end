@@ -20,19 +20,25 @@ function AdminUsers() {
         }
     }, [dispatch])
 
+    function refresh() {
+        dispatch(getUsers())
+        dispatch(reset())
+
+    }
 
     const filteredUsers = users.filter(user => user.role !== 'admin')
 
     // removes User
     const removeUser = (id) => {
         dispatch(deleteUser(id))
+        setTimeout(refresh, 400)
     }
     return (
         <div>
             {filteredUsers.map((aUser) => (
-                <div key={aUser._id}>
+                <div key={aUser._id} className="adminUser">
                     <h3>{aUser.name}</h3>
-                    <button onClick={() => removeUser(aUser._id)}>Remove User</button>
+                    <button onClick={() => removeUser(aUser._id)} className="adminRemoveBtn">Remove User</button>
                 </div>
             ))}
         </div>

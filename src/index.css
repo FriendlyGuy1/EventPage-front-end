@@ -577,3 +577,90 @@ img {
   padding-bottom: 5px;
   margin-bottom: 10px;
 }
+
+.categoriesAndUsers{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.adminCategories{
+  border: 2px solid rgb(51, 7, 51);
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.adminUsers{
+  border: 2px solid rgb(51, 7, 51);
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.adminSeparateCategory{
+  margin-top: 20px;
+}
+
+.adminRemoveBtn {
+  padding: 6px 10px;
+  border: 1px solid red;
+  border-radius: 5px;
+  background: red;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  margin-right: 5px;
+}
+
+.adminSubmit{
+  padding: 9px 10px;
+  border: 1px solid rgb(146, 153, 84);
+  border-radius: 5px;
+  background: rgb(182, 190, 110);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  margin-right: 5px;
+}
+
+.adminApproveBtn {
+  padding: 6px 10px;
+  border: 1px solid green;
+  border-radius: 5px;
+  background: green;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  margin-right: 5px;
+}
+
+.adminInput{
+  border: none;
+  background: hsl(0 0% 93%);
+  border-radius: .25rem;
+  padding: .75rem 1rem;
+  margin-bottom: 4px;
+}
+.adminForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminUser{
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #202020;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-left: 5px;
+  padding-bottom: 4px;
+}

@@ -48,46 +48,54 @@ function AdminPanel() {
 
     const change = (chosenId) => {
         dispatch(changeACategory({ chosenId, newName }))
-        setTimeout(refresh, 200)
+        setTimeout(refresh, 300)
     }
 
     //===========================
 
     const deleteACategory = (id) => {
         dispatch(deleteCategory(id))
-        setTimeout(refresh, 200)
+        setTimeout(refresh, 300)
 
     }
     return (
         <div>
             <div className="approvalWindow">
-                <EventApproval/>
+                <EventApproval />
             </div>
-            <div>
-                <form onSubmit={onSubmit}>
-                    <input type="text"
-                        placeholder="Add category name"
-                        onChange={(e) => setCategory(e.target.value)}
-                    />
-                    <button type='submit'>Submit</button>
-
-                </form>
-                {categories.map((Acategory) => (
-                    <div key={Acategory._id}>
-                        <h2>{Acategory.category}</h2>
-                        <button onClick={() => deleteACategory(Acategory._id)}>remove</button>
+            <div className="categoriesAndUsers">
+                <div className="adminCategories">
+                    <form onSubmit={onSubmit} className="adminForm">
                         <input type="text"
-                            placeholder="Add new category name"
-                            onChange={(e) => setNewName(e.target.value)}
+                            placeholder="Add category name"
+                            className="adminInput"
+                            onChange={(e) => setCategory(e.target.value)}
                         />
-                        <button onClick={() => change(Acategory._id)}>update</button>
-                    </div>
-                ))}
+                        <button type='submit' className="adminSubmit">Submit</button>
+
+                    </form>
+                    {categories.map((Acategory) => (
+                        <div key={Acategory._id} className="adminSeparateCategory">
+                            <h2>{Acategory.category}</h2>
+
+                            <input type="text"
+                                placeholder="Add new category name"
+                                className="adminInput"
+                                onChange={(e) => setNewName(e.target.value)}
+                            />
+                            <div>
+                                <button onClick={() => change(Acategory._id)} className="adminApproveBtn">update</button>
+                                <button onClick={() => deleteACategory(Acategory._id)} className="adminRemoveBtn">remove</button>
+                            </div>
+
+                        </div>
+                    ))}
+                </div>
+                <div className="adminUsers">
+                    <AdminUsers />
+                </div>
             </div>
 
-            <div>
-                <AdminUsers />
-            </div>
         </div>
 
     )
