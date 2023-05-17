@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deleteEvent, updateEvent } from "../features/events/eventSlice";
+import { deleteEvent, getEvents, updateEvent } from "../features/events/eventSlice";
 import UpdateEvent from "./UpdateEvent";
 import { useEffect, useState } from "react";
 import { postFavourite } from "../features/favourite/favouriteSlice";
@@ -36,12 +36,14 @@ function OneEvent({ event, showFavouriteButton, category }) {
     setShowCounter(false);
   };
 
-  const handleFavourite = () => {
+  const handleFavourite = async() => {
     if (!user) {
       navigate("/login");
     }
 
-    dispatch(postFavourite(event._id));
+    await dispatch(postFavourite(event._id)) 
+    
+    dispatch(getEvents())
   };
 
   const handleDisapproval = () => {
