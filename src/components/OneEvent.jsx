@@ -2,12 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteEvent, getEvents, updateEvent } from "../features/events/eventSlice";
 import UpdateEvent from "./UpdateEvent";
 import { useEffect, useState } from "react";
-import { postFavourite } from "../features/favourite/favouriteSlice";
+import { getFavourites, postFavourite } from "../features/favourite/favouriteSlice";
 import { useNavigate } from "react-router-dom";
 import { MdOutlinePlace } from "react-icons/md";
 import { RxHeartFilled } from "react-icons/rx";
 
-function OneEvent({ event, showFavouriteButton, category }) {
+function OneEvent({ event, showFavouriteButton, category, Favorited}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,7 +18,6 @@ function OneEvent({ event, showFavouriteButton, category }) {
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [showCounter, setShowCounter] = useState(true);
   const [showDisapproval, setShowDisapproval] = useState(false);
-
 
   useEffect(() => {
     if (user === null) {
@@ -41,11 +40,18 @@ function OneEvent({ event, showFavouriteButton, category }) {
       navigate("/login");
     }
 
-    await dispatch(postFavourite(event._id)) 
+    if(Favorited){
+      
+    }
+    else{
+      await dispatch(postFavourite(event._id)) 
+    }
     
     dispatch(getEvents())
+    dispatch(getFavourites())
+  
   };
-
+  
   const handleDisapproval = () => {
     let updatedDisapproval = {
       approved: false,
@@ -104,7 +110,7 @@ function OneEvent({ event, showFavouriteButton, category }) {
               {showFavouriteButton && (
                 <button
                   onClick={() => handleFavourite()}
-                  className="favouriteIcon fav"
+                  className={`${Favorited ? "favouriteIconRed fav" : "favouriteIcon fav"}`}
                 >
                   <RxHeartFilled />
                 </button>

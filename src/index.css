@@ -163,6 +163,17 @@ a:after {
   border: none;
   color: white;
   font-size: 35px;
+  cursor: pointer;
+}
+
+.favouriteIconRed {
+  position: absolute;
+  top: 18px;
+  right: 56px;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 35px;
 }
 
 .favouriteIcon:hover {

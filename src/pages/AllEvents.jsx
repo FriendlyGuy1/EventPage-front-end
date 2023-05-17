@@ -4,19 +4,24 @@ import OneEvent from '../components/OneEvent'
 import Spinner from '../components/Spinner'
 import { getEvents, reset } from '../features/events/eventSlice'
 import { getCategories} from '../features/categories/categorySlice'
+import { getFavourites } from '../features/favourite/favouriteSlice'
 
 function AllEvents() {
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.auth)
 
-      //Filter
-      const [category, setCategory] = useState("")
-      const [ageOption, setageOption] = useState("empty")
-      const [sortMemory, setSortMemory] = useState("sort_choice0")
+    //Filter
+    const [category, setCategory] = useState("")
+    const [ageOption, setageOption] = useState("empty")
+    const [sortMemory, setSortMemory] = useState("sort_choice0")
 
-      const { events, isLoading, isError, message } = useSelector(
-        (state) => state.events
-      )
+    const { events, isLoading, isError, message } = useSelector(
+      (state) => state.events
+    )
+
+    const { favourites} = useSelector(
+      (state) => state.favourites
+    )
 
   const { categories } = useSelector(
     (state) => state.categories
@@ -29,6 +34,7 @@ function AllEvents() {
     
         dispatch(getEvents())
         dispatch(getCategories())
+        dispatch(getFavourites())
 
         return () => {
           dispatch(reset())
@@ -129,12 +135,20 @@ function AllEvents() {
         <section className='content'>
             {eventsCopy.length > 0 ? (
                 <div className='goals'>
-                    {
-                        eventsCopy.map((event) => (
-                            <OneEvent key={event._id} event={event} showFavouriteButton={true} category={category}/>
-                        ))
-                    }
-                </div>
+                {eventsCopy.map((event) => {
+                  const isFavorited = favourites?.some((fav) => fav.eventID === event._id);
+            
+                  return (
+                    <OneEvent
+                      key={event._id}
+                      event={event}
+                      showFavouriteButton={true}
+                      category={category}
+                      Favorited={isFavorited}
+                    />
+                  );
+                })}
+              </div>
                 ) : (
                 <h3>Events not Found</h3>
             )}
