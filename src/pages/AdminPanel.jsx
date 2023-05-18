@@ -28,7 +28,7 @@ function AdminPanel() {
     const onSubmit = (e) => {
         e.preventDefault()
         dispatch(postCategory({ category }))
-        setTimeout(refresh, 200)
+        setTimeout(refresh, 300)
 
     }
 
