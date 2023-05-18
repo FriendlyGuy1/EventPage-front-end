@@ -23,7 +23,6 @@ const postCategories = async (category, token) => {
 
 const removeCategory = async (id, token) => {
   const API_REMOVE = process.env.NODE_ENV === "production" ? `https://eventpage.onrender.com/api/categories/${id}` : `/api/categories/${id}`
-  console.log(id);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -38,9 +37,6 @@ const removeCategory = async (id, token) => {
 
 const changeCategory = async (id, changes, token) => {
   const API_UPDATE = process.env.NODE_ENV === "production" ? `https://eventpage.onrender.com/api/categories/${id}` : `/api/categories/${id}`
-  console.log("hello");
-  console.log(changes);
-  console.log(id);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

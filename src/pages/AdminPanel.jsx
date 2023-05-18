@@ -21,7 +21,6 @@ function AdminPanel() {
     function refresh() {
         dispatch(getCategories())
         dispatch(reset())
-
     }
     //Creates new category
     const [category, setCategory] = useState('')
@@ -34,18 +33,11 @@ function AdminPanel() {
     }
 
     // change category name
-
-    function refresh() {
-        dispatch(getCategories())
-        dispatch(reset())
-
-    }
     const [newName, setNewName] = useState('')
 
     const change = (chosenId) => {
-        console.log(chosenId);
-        console.log(newName);
         dispatch(changeACategory({chosenId, newName }))
+        setTimeout(refresh, 300)
     }
 
     //===========================
@@ -71,7 +63,7 @@ function AdminPanel() {
                         <button type='submit' className="adminSubmit">Submit</button>
 
                     </form>
-                    {categories.map((Acategory) => (
+                    {categories?.map((Acategory) => (
                         <div key={Acategory._id} className="adminSeparateCategory">
                             <h2>{Acategory.category}</h2>
 

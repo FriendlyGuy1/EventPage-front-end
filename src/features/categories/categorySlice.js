@@ -70,8 +70,6 @@ export const changeACategory = createAsyncThunk(
       const changes = {
         category: chosen.newName
       }
-      console.log(id);
-      console.log(changes);
       const token = thunkAPI.getState().auth.user.token
       return await categoryService.changeCategory(id, changes, token)
     } catch (error) {
@@ -139,7 +137,7 @@ export const categorieSlice = createSlice({
       .addCase(changeACategory.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.categories = action.payload
+        state.message = action.payload
       })
       .addCase(changeACategory.rejected, (state, action) => {
         state.isLoading = false
