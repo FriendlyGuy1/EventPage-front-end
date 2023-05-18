@@ -180,7 +180,7 @@ function OneEvent({ event, showFavouriteButton, category, Favorited}) {
           </div>
         </div>
         ) : (
-          <div></div>
+          null
         )}
       </>
     );
