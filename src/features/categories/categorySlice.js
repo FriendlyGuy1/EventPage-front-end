@@ -64,10 +64,14 @@ export const deleteCategory = createAsyncThunk(
 
 export const changeACategory = createAsyncThunk(
   'categories/change',
-  async (chosenId, newName, thunkAPI) => {
+  async (chosen, thunkAPI) => {
     try {
+      const id = chosen.chosenId
+      const changes = {
+        category: chosen.newName
+      }
       const token = thunkAPI.getState().auth.user.token
-      return await categoryService.changeCategory(chosenId, newName, token)
+      return await categoryService.changeCategory(id, changes, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -133,7 +137,7 @@ export const categorieSlice = createSlice({
       .addCase(changeACategory.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.categories = action.payload
+        state.message = action.payload
       })
       .addCase(changeACategory.rejected, (state, action) => {
         state.isLoading = false
