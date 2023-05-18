@@ -169,7 +169,7 @@ function OneEvent({ event, showFavouriteButton, category, Favorited}) {
             {showFavouriteButton && (
               <button
                 onClick={() => handleFavourite()}
-                className="favouriteIcon fav"
+                className={`${Favorited ? "favouriteIconRed fav" : "favouriteIcon fav"}`}
               >
                 <RxHeartFilled />
               </button>
