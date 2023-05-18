@@ -37,14 +37,14 @@ function AdminPanel() {
 
     const change = (chosenId) => {
         dispatch(changeACategory({chosenId, newName }))
-        setTimeout(refresh, 300)
+        setTimeout(refresh, 400)
     }
 
     //===========================
 
     const deleteACategory = (id) => {
         dispatch(deleteCategory(id))
-        setTimeout(refresh, 300)
+        setTimeout(refresh, 400)
 
     }
     return (
