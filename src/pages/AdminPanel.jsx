@@ -11,16 +11,12 @@ function AdminPanel() {
     const { categories } = useSelector(
         (state) => state.categories
     )
-
     useEffect(() => {
-
         dispatch(getCategories())
-
         return () => {
             dispatch(reset())
         }
     }, [dispatch])
-
 
     function refresh() {
         dispatch(getCategories())
@@ -47,8 +43,9 @@ function AdminPanel() {
     const [newName, setNewName] = useState('')
 
     const change = (chosenId) => {
-        dispatch(changeACategory({ chosenId, newName }))
-        setTimeout(refresh, 300)
+        console.log(chosenId);
+        console.log(newName);
+        dispatch(changeACategory({chosenId, newName }))
     }
 
     //===========================

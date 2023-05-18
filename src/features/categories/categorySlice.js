@@ -64,10 +64,16 @@ export const deleteCategory = createAsyncThunk(
 
 export const changeACategory = createAsyncThunk(
   'categories/change',
-  async (chosenId, newName, thunkAPI) => {
+  async (chosen, thunkAPI) => {
     try {
+      const id = chosen.chosenId
+      const changes = {
+        category: chosen.newName
+      }
+      console.log(id);
+      console.log(changes);
       const token = thunkAPI.getState().auth.user.token
-      return await categoryService.changeCategory(chosenId, newName, token)
+      return await categoryService.changeCategory(id, changes, token)
     } catch (error) {
       const message =
         (error.response &&
